@@ -1,3 +1,80 @@
+//==========================================================
+// Content from: C:\Users\mhbau\Downloads\inline_sql_syntax\.prettierrc.json
+//==========================================================
+
+{
+    "trailingComma": "all",
+    "tabWidth": 4,
+    "semi": true,
+    "singleQuote": true
+}
+
+
+//==========================================================
+// Content from: C:\Users\mhbau\Downloads\inline_sql_syntax\.vscode\launch.json
+//==========================================================
+
+{
+    "version": "0.1.0",
+    "configurations": [
+        {
+            "name": "Debug extension",
+            "type": "extensionHost",
+            "request": "launch",
+            "runtimeExecutable": "${execPath}",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceRoot}"
+            ]
+        }
+    ]
+}
+
+
+//==========================================================
+// Content from: C:\Users\mhbau\Downloads\inline_sql_syntax\.vscode\tasks.json
+//==========================================================
+
+{
+    "version": "2.0.0",
+    "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true
+    },
+    "tasks": [
+		{
+			"label": "r/up",
+			"type": "shell",
+			"command": "bash -i run.sh up",
+			"isBackground": true,
+		},
+		{
+			"label": "r/up:db",
+			"type": "shell",
+			"command": "bash -i run.sh up:db",
+			"isBackground": true,
+		},
+		{
+			"label": "r/package",
+			"type": "shell",
+			"command": "bash -i run.sh package",
+		},
+		{
+			"label": "r/publish",
+			"type": "shell",
+			"command": "bash -i run.sh publish",
+		},
+    ],
+}
+
+
+//==========================================================
+// Content from: C:\Users\mhbau\Downloads\inline_sql_syntax\package-lock.json
+//==========================================================
+
 {
     "name": "inline-sql-syntax",
     "version": "2.16.0",
@@ -1421,3 +1498,835 @@
         }
     }
 }
+
+
+//==========================================================
+// Content from: C:\Users\mhbau\Downloads\inline_sql_syntax\package.json
+//==========================================================
+
+{
+    "name": "inline-sql-syntax",
+    "displayName": "Inline SQL",
+    "description": "Highlight and lint SQL strings and SQL files. Python, Go, Rust, JS, TS, Ruby, Java, C#, PHP, Lua.",
+    "version": "2.16.0",
+    "author": "qufiwefefwoyn <qufiwefefwoyn@gmail.com>",
+    "publisher": "qufiwefefwoyn",
+    "license": "MIT",
+    "icon": "assets/logo.png",
+    "repository": {
+        "url": "https://github.com/barklan/inline_sql_syntax"
+    },
+    "homepage": "https://github.com/barklan/inline_sql_syntax",
+    "engines": {
+        "vscode": "^1.63.0"
+    },
+    "categories": [
+        "Linters",
+        "Other"
+    ],
+    "keywords": [
+        "sql",
+        "postgres",
+        "mysql",
+        "lint",
+        "inline"
+    ],
+    "activationEvents": [
+        "onLanguage:python",
+        "onLanguage:go",
+        "onLanguage:javascript",
+        "onLanguage:typescript",
+        "onLanguage:java",
+        "onLanguage:ruby",
+        "onLanguage:csharp",
+        "onLanguage:rust",
+        "onLanguage:sql",
+        "onLanguage:php",
+        "onLanguage:lua"
+    ],
+    "main": "./out/extension.js",
+    "browser": "./out/extension.js",
+    "scripts": {
+        "vscode:prepublish": "npm run esbuild-base -- --minify",
+        "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --external:pg-native --format=cjs --platform=node",
+        "esbuild": "npm run esbuild-base -- --sourcemap",
+        "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
+        "test-compile": "tsc -p ./",
+        "compile": "tsc -p ./",
+        "lint": "npx prettier --check ./src",
+        "watch": "tsc -watch -p ./"
+    },
+    "contributes": {
+        "grammars": [
+            {
+                "path": "./syntaxes/highlight-sql-string.json",
+                "scopeName": "inline-sql.injection",
+                "injectTo": [
+                    "source.python",
+                    "source.java",
+                    "source.ruby",
+                    "source.cs",
+                    "source.js",
+                    "source.ts",
+                    "source.vue",
+                    "source.svelte",
+                    "source.tsx",
+                    "source.rust",
+                    "text.html.php"
+                ],
+                "embeddedLanguages": {
+                    "meta.embedded.sql": "sql"
+                }
+            },
+            {
+                "path": "./syntaxes/php-multiline.json",
+                "scopeName": "php-multiline.injection",
+                "injectTo": [
+                    "text.html.php"
+                ],
+                "embeddedLanguages": {
+                    "meta.embedded.sql": "sql"
+                }
+            },
+            {
+                "path": "./syntaxes/c-sharp-multiline.json",
+                "scopeName": "c-sharp-multiline.injection",
+                "injectTo": [
+                    "source.cs"
+                ],
+                "embeddedLanguages": {
+                    "meta.embedded.sql": "sql"
+                }
+            },
+            {
+                "path": "./syntaxes/lua-multiline.json",
+                "scopeName": "lua-multiline.injection",
+                "injectTo": [
+                    "source.lua"
+                ],
+                "embeddedLanguages": {
+                    "meta.embedded.sql": "sql"
+                }
+            },
+            {
+                "path": "./syntaxes/es6_inline.json",
+                "scopeName": "es6_inline",
+                "injectTo": [
+                    "source.js",
+                    "source.js.jsx",
+                    "source.jsx",
+                    "source.ts",
+                    "source.tsx"
+                ],
+                "embeddedLanguages": {
+                    "meta.embedded.sql": "sql",
+                    "meta.template.expression.ts": "typescript"
+                }
+            },
+            {
+                "path": "./syntaxes/golang-multiline.json",
+                "scopeName": "golang-multiline.injection",
+                "injectTo": [
+                    "source.go"
+                ],
+                "embeddedLanguages": {
+                    "meta.embedded.sql": "sql"
+                }
+            },
+            {
+                "language": "java",
+                "scopeName": "inline-sql.injection",
+                "path": "./syntaxes/inline-sql-injection.json",
+                "injectTo": ["source.java"]
+            }
+        ],
+        "configuration": {
+            "title": "inline-sql-syntax",
+            "properties": {
+                "inlineSQL.enableDBIntegration": {
+                    "type": "boolean",
+                    "default": false,
+                    "markdownDescription": "Enable linting using real database."
+                },
+                "inlineSQL.dbDriver": {
+                    "type": "string",
+                    "default": "postgres",
+                    "description": "Driver to use for verifying queries. It currently supports MySQL and Postgres.",
+                    "enum": [
+                        "mysql",
+                        "postgres"
+                    ]
+                },
+                "inlineSQL.dbHost": {
+                    "type": "string",
+                    "default": "localhost",
+                    "markdownDescription": "Database host address."
+                },
+                "inlineSQL.dbPort": {
+                    "type": "number",
+                    "default": 5432,
+                    "markdownDescription": "Database port."
+                },
+                "inlineSQL.dbUser": {
+                    "type": "string",
+                    "default": "postgres",
+                    "markdownDescription": "Database user."
+                },
+                "inlineSQL.dbPassword": {
+                    "type": "string",
+                    "default": "postgres",
+                    "markdownDescription": "Database password."
+                },
+                "inlineSQL.lintSQLFiles": {
+                    "type": "boolean",
+                    "default": false,
+                    "markdownDescription": "Enable linting for SQL files."
+                }
+            }
+        }
+    },
+    "devDependencies": {
+        "@types/node": "^17.0.21",
+        "@types/vscode": "^1.63.0",
+        "esbuild": "^0.14.25",
+        "prettier": "2.6.2",
+        "typescript": "^4.6.2"
+    },
+    "dependencies": {
+        "sql-lint": "^0.0.19"
+    },
+    "__metadata": {
+        "id": "4d32ffbd-a404-4f22-9022-38a9e83e55f1",
+        "publisherDisplayName": "qufiwefefwoyn",
+        "publisherId": "5be51ce2-befe-4527-952a-3e1c764d2c4e",
+        "isPreReleaseVersion": false,
+        "targetPlatform": "undefined",
+        "isApplicationScoped": false,
+        "updated": false,
+        "preRelease": false,
+        "installedTimestamp": 1662490066638
+    }
+}
+
+
+//==========================================================
+// Content from: C:\Users\mhbau\Downloads\inline_sql_syntax\src\configuration.ts
+//==========================================================
+
+import * as vscode from 'vscode';
+
+export const PREFIX = 'inlineSQL';
+
+export enum DRIVER { // eslint-disable-line no-shadow
+    mysql = 'mysql', // eslint-disable-line no-unused-vars
+    postgres = 'postgres', // eslint-disable-line no-unused-vars
+}
+
+export type Configuration = {
+    enableDBIntegration: boolean;
+    dbDriver: DRIVER;
+    dbHost: string;
+    dbPort: number;
+    dbUser: string;
+    dbPassword: string;
+    lintSQLFiles: boolean;
+};
+
+export function getConfiguration() {
+    return vscode.workspace.getConfiguration();
+}
+
+export function get<T>(key: keyof Configuration): T {
+    return getConfiguration().get<Configuration>(
+        `${PREFIX}.${key}`,
+    ) as unknown as T;
+}
+
+
+//==========================================================
+// Content from: C:\Users\mhbau\Downloads\inline_sql_syntax\src\extension.ts
+//==========================================================
+
+import * as vscode from 'vscode';
+import sqlLint from 'sql-lint';
+import * as configuration from './configuration';
+
+export const PHP_SQL = '<<<SQL';
+export const SQL_START_REGEX = /(?<token>"""|"|'''|'|`)--\s*sql/;
+
+async function checkRange(
+    log: vscode.OutputChannel,
+    doc: vscode.TextDocument,
+    range: vscode.Range,
+): Promise<vscode.Diagnostic[]> {
+    const diagnostics: vscode.Diagnostic[] = [];
+
+    const sqlStr = doc.getText(range);
+
+    let errors = null;
+    log.appendLine(`linting sql: ${sqlStr}`);
+    if (configuration.get<boolean>('enableDBIntegration')) {
+        try {
+            log.appendLine('linting sql using live database');
+            errors = await sqlLint({
+                sql: sqlStr,
+                driver: configuration.get<string>('dbDriver'),
+                host: configuration.get<string>('dbHost'),
+                port: configuration.get<number>('dbPort'),
+                user: configuration.get<string>('dbUser'),
+                password: configuration.get<string>('dbPassword'),
+            });
+            log.appendLine(`${errors.length} errors found`);
+        } catch {
+            log.appendLine('failed to make database request');
+        }
+    } else {
+        errors = await sqlLint({ sql: sqlStr });
+        log.appendLine(`${errors.length} errors found`);
+    }
+
+    if (errors != null) {
+        for (let i = 0; i < errors.length; i += 1) {
+            const diagnostic = new vscode.Diagnostic(
+                range,
+                errors[i].error,
+                vscode.DiagnosticSeverity.Error,
+            );
+            diagnostics.push(diagnostic);
+        }
+    }
+
+    return diagnostics;
+}
+
+export async function refreshDiagnostics(
+    doc: vscode.TextDocument,
+    inlinesqlDiagnostics: vscode.DiagnosticCollection,
+    log: vscode.OutputChannel,
+): Promise<void> {
+    const diagnostics: vscode.Diagnostic[] = [];
+
+    let startRangePosition = -1;
+    let sqlStringBound = '';
+    let sqlStartLineIndex = -1;
+
+    if (
+        configuration.get<boolean>('lintSQLFiles') &&
+        doc.languageId === 'sql'
+    ) {
+        const lastLineIndex = doc.lineCount - 1;
+        const lastLine = doc.lineAt(lastLineIndex);
+
+        const range = new vscode.Range(
+            0,
+            0,
+            lastLineIndex,
+            lastLine.text.length,
+        );
+        const subDiagnostics = await checkRange(log, doc, range);
+        diagnostics.push(...subDiagnostics);
+
+        inlinesqlDiagnostics.set(doc.uri, diagnostics);
+        return;
+    }
+    let match;
+    let phpPatternStart = -1;
+    let sqlStringCnt = 0;
+    for (let lineIndex = 0; lineIndex < doc.lineCount; lineIndex += 1) {
+        let lineOfText = doc.lineAt(lineIndex).text;
+        if (sqlStartLineIndex === -1) {
+            if ((match = SQL_START_REGEX.exec(lineOfText)) !== null) {
+                startRangePosition = match.index + match.groups!.token.length;
+                sqlStringBound = match.groups!.token;
+                sqlStartLineIndex = lineIndex;
+            } else if ((phpPatternStart = lineOfText.indexOf(PHP_SQL)) !== -1) {
+                startRangePosition = phpPatternStart + PHP_SQL.length;
+                sqlStringBound = 'SQL;';
+                sqlStartLineIndex = lineIndex;
+            }
+        } else if (sqlStringBound !== '') {
+            let endSqlIndex = lineOfText.indexOf(sqlStringBound);
+            if (endSqlIndex !== -1) {
+                sqlStringCnt += 1;
+                const range = new vscode.Range(
+                    sqlStartLineIndex,
+                    startRangePosition,
+                    lineIndex,
+                    endSqlIndex,
+                );
+                const subDiagnostics = await checkRange(log, doc, range);
+                diagnostics.push(...subDiagnostics);
+                sqlStartLineIndex = -1;
+                sqlStringBound = '';
+            }
+        }
+    }
+    const now = new Date().toISOString();
+    if (sqlStringBound !== '') {
+        log.appendLine(`${now}: SQL string was not closed.`);
+    }
+    log.appendLine(`${now}: ${sqlStringCnt} SQL strings found and linted`);
+
+    inlinesqlDiagnostics.set(doc.uri, diagnostics);
+}
+
+export async function subscribeToDocumentChanges(
+    context: vscode.ExtensionContext,
+    inlinesqlDiagnostics: vscode.DiagnosticCollection,
+    log: vscode.OutputChannel,
+): Promise<void> {
+    context.subscriptions.push(
+        vscode.window.onDidChangeActiveTextEditor((editor) => {
+            if (editor) {
+                refreshDiagnostics(editor.document, inlinesqlDiagnostics, log);
+            }
+        }),
+    );
+
+    context.subscriptions.push(
+        vscode.workspace.onDidSaveTextDocument((e) => {
+            const now = new Date().toISOString();
+            log.appendLine(`${now}: document saved, refreshing diagnostics`);
+            refreshDiagnostics(e, inlinesqlDiagnostics, log);
+        }),
+    );
+
+    context.subscriptions.push(
+        vscode.workspace.onDidCloseTextDocument((doc) =>
+            inlinesqlDiagnostics.delete(doc.uri),
+        ),
+    );
+    log.appendLine('watching active editors');
+}
+
+export async function activate(context: vscode.ExtensionContext) {
+    const inlinesqlDiagnostics =
+        vscode.languages.createDiagnosticCollection('inlinesql');
+    context.subscriptions.push(inlinesqlDiagnostics);
+
+    const log = vscode.window.createOutputChannel('Inline SQL');
+    log.appendLine('inline SQL activated');
+
+    await subscribeToDocumentChanges(context, inlinesqlDiagnostics, log);
+}
+
+
+//==========================================================
+// Content from: C:\Users\mhbau\Downloads\inline_sql_syntax\syntaxes\c-sharp-multiline.json
+//==========================================================
+
+{
+    "scopeName": "c-sharp-multiline.injection",
+    "fileTypes": [
+        "cs"
+    ],
+    "injectionSelector": [
+        "L:source -comment -string"
+    ],
+    "patterns": [
+        {
+            "comment": "C# multi-lines strings",
+            "begin": "(@\")(--\\s*sql)",
+            "beginCaptures": {
+                "2": {
+                    "name": "comment.sql"
+                }
+            },
+            "end": "(\")",
+            "patterns": [
+                {
+                    "include": "source.sql"
+                }
+            ]
+        },
+        {
+            "comment": "C# multi-lines strings",
+            "begin": "(@\")(SELECT |INSERT INTO |DELETE |UPDATE |CREATE TABLE |CREATE INDEX)",
+            "beginCaptures": {
+                "2": {
+                    "name": "keyword.sql"
+                }
+            },
+            "end": "(\")",
+            "patterns": [
+                {
+                    "include": "source.sql"
+                }
+            ]
+        }
+    ]
+}
+
+
+//==========================================================
+// Content from: C:\Users\mhbau\Downloads\inline_sql_syntax\syntaxes\es6_inline.json
+//==========================================================
+
+{
+    "scopeName": "es6_inline",
+    "fileTypes": [
+        "js",
+        "jsx",
+        "ts",
+        "tsx"
+    ],
+    "injectionSelector": "L:source.js -comment -string, L:source.jsx -comment -string, L:source.js.jsx -comment -string, L:source.ts -comment -string, L:source.js (string.quoted.double.html, string.quoted.single.html), L:source.jsx (string.quoted.double.html, string.quoted.single.html), L:source.js.jsx (string.quoted.double.html, string.quoted.single.html), L:source.ts (string.quoted.double.html, string.quoted.single.html), L:source.tsx (string.quoted.double.html, string.quoted.single.html)",
+    "injections": {
+        "L:source": {
+            "patterns": [
+                {
+                    "match": "<",
+                    "name": "invalid.illegal.bad-angle-bracket.html"
+                }
+            ]
+        }
+    },
+    "patterns": [
+        {
+            "contentName": "meta.embedded.sql",
+            "begin": "(?x)(\\s*?(\\w+\\.)?(?:sql|/\\*\\s*sql\\s*\\*/)\\s*)(`)",
+            "beginCaptures": {
+                "0": {
+                    "name": "string.template.ts, punctuation.definition.string.template.begin.ts"
+                },
+                "1": {
+                    "name": "entity.name.function.tagged-template.ts"
+                }
+            },
+            "end": "(`)",
+            "endCaptures": {
+                "0": {
+                    "name": "string.template.ts, punctuation.definition.string.template.end.ts"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "source.ts#template-substitution-element"
+                },
+                {
+                    "include": "source.sql"
+                }
+            ]
+        },
+        {
+            "include": "source.ts#template-substitution-element"
+        }
+    ]
+}
+
+
+//==========================================================
+// Content from: C:\Users\mhbau\Downloads\inline_sql_syntax\syntaxes\golang-multiline.json
+//==========================================================
+
+{
+    "scopeName": "golang-multiline.injection",
+    "fileTypes": [
+        "go"
+    ],
+    "injectionSelector": [
+        "L:string.quoted.raw.go -comment"
+    ],
+    "patterns": [
+        {
+            "name": "meta.embedded.sql",
+            "begin": "\\s*((?i)(select|with|insert|update|create table|create index)(?=\\s))|(--\\w+)",
+            "end": "(?=`)",
+            "beginCaptures": {
+            "2": { "name": "keyword.other.DML.sql" },
+            "3": { "name": "comment.line.double-dash.sql" }
+            },
+            "patterns": [
+                { "include": "source.sql" }
+            ]
+        }
+    ]
+}
+
+
+//==========================================================
+// Content from: C:\Users\mhbau\Downloads\inline_sql_syntax\syntaxes\highlight-sql-string.json
+//==========================================================
+
+{
+    "scopeName": "inline-sql.injection",
+    "fileTypes": [
+        "py",
+        "js",
+        "jsx",
+        "ts",
+        "tsx",
+        "vue",
+        "svelte",
+        "java",
+        "rb",
+        "cs",
+        "rs",
+        "php"
+    ],
+    "injectionSelector": [
+        "L:source.java -comment -string",
+        "text.html.php",
+        "L:source -comment -string"
+    ],
+    "patterns": [
+        {
+            "comment": "Rust multi-line raw strings",
+            "begin": "(b?r)(#*)(\")(--\\s*sql)",
+            "beginCaptures": {
+                "1": {
+                    "name": "string.quoted.byte.raw.rust"
+                },
+                "2": {
+                    "name": "string.raw.rust"
+                },
+                "3": {
+                    "name": "string.rust"
+                },
+                "4": {
+                    "name": "comment.sql"
+                }
+            },
+            "end": "(\")(\\2)",
+            "endCaptures": {
+                "1": {
+                    "name": "string.rust"
+                },
+                "2": {
+                    "name": "string.raw.rust"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "source.sql"
+                }
+            ]
+        },
+        {
+            "begin": "(\")(--\\s*sql)",
+            "beginCaptures": {
+                "2": {
+                    "name": "comment.sql"
+                }
+            },
+            "end": "(\")",
+            "patterns": [
+                {
+                    "include": "source.sql"
+                }
+            ]
+        },
+        {
+            "begin": "(?i)(\")(SELECT |INSERT INTO |DELETE |UPDATE |CREATE TABLE |CREATE INDEX )",
+            "beginCaptures": {
+                "2": {
+                    "name": "keyword.sql"
+                }
+            },
+            "end": "(\")",
+            "patterns": [
+                {
+                    "include": "source.sql"
+                }
+            ]
+        },
+        {
+            "begin": "(`)(--\\s*sql)",
+            "beginCaptures": {
+                "2": {
+                    "name": "comment.sql"
+                }
+            },
+            "end": "(`)",
+            "patterns": [
+                {
+                    "include": "source.sql"
+                }
+            ]
+        },
+        {
+            "begin": "(?i)(`)(SELECT |INSERT INTO |DELETE |UPDATE |CREATE TABLE |CREATE INDEX)",
+            "beginCaptures": {
+                "2": {
+                    "name": "keyword.sql"
+                }
+            },
+            "end": "(`)",
+            "patterns": [
+                {
+                    "include": "source.sql"
+                }
+            ]
+        },
+        {
+            "comment": "Java text-blocks with explicit --sql marker",
+            "begin": "(\"\"\")(--\\s*sql)",
+            "beginCaptures": {
+                "1": { "name": "punctuation.definition.string.begin.java" },
+                "2": { "name": "comment.sql" }
+            },
+            "end": "(\"\"\")",
+            "endCaptures": {
+                "1": { "name": "punctuation.definition.string.end.java" }
+            },
+            "contentName": "source.sql",
+            "patterns": [
+                { "include": "source.sql" }
+            ]
+            },
+            {
+            "comment": "Java text-blocks where SQL starts on the next line or after whitespace",
+            "begin": "(?i)(\"\"\")\\s*(SELECT\\b|INSERT INTO\\b|DELETE\\b|UPDATE\\b|CREATE TABLE\\b|CREATE INDEX\\b|WITH\\b|ALTER\\b|DROP\\b)",
+            "beginCaptures": {
+                "1": { "name": "punctuation.definition.string.begin.java" },
+                "2": { "name": "keyword.sql" }
+            },
+            "end": "(\"\"\")",
+            "endCaptures": {
+                "1": { "name": "punctuation.definition.string.end.java" }
+            },
+            "contentName": "source.sql",
+            "patterns": [
+                { "include": "source.sql" }
+            ]
+        },
+        {
+            "comment": "Python multi-line strings",
+            "begin": "f?(\"\"\")(--\\s*sql)",
+            "beginCaptures": {
+                "2": {
+                    "name": "comment.sql"
+                }
+            },
+            "end": "(\"\"\")",
+            "patterns": [
+                {
+                    "include": "source.sql"
+                }
+            ]
+        },
+        {
+            "begin": "(?i)(\"\"\")(SELECT |INSERT INTO |DELETE |UPDATE |CREATE TABLE |CREATE INDEX)",
+            "beginCaptures": {
+                "2": {
+                    "name": "keyword.sql"
+                }
+            },
+            "end": "(\"\"\")",
+            "patterns": [
+                {
+                    "include": "source.sql"
+                }
+            ]
+        }
+    ]
+}
+
+
+//==========================================================
+// Content from: C:\Users\mhbau\Downloads\inline_sql_syntax\syntaxes\lua-multiline.json
+//==========================================================
+
+{
+    "scopeName": "lua-multiline.injection",
+    "fileTypes": [
+        "lua"
+    ],
+    "injectionSelector": [
+        "L:source -comment -string"
+    ],
+    "patterns": [
+        {
+            "comment": "Lua multi-lines strings",
+            "begin": "(\\[\\=*\\[)(--\\s*sql)",
+            "beginCaptures": {
+                "2": {
+                    "name": "comment.sql"
+                }
+            },
+            "end": "(\\]\\=*\\])",
+            "patterns": [
+                {
+                    "include": "source.sql"
+                }
+            ]
+        },
+        {
+            "comment": "Lua multi-lines strings",
+            "begin": "(\\[\\=*\\[)(SELECT |INSERT INTO |DELETE |UPDATE |CREATE TABLE |CREATE INDEX)",
+            "beginCaptures": {
+                "2": {
+                    "name": "keyword.sql"
+                }
+            },
+            "end": "(\\]\\=*\\])",
+            "patterns": [
+                {
+                    "include": "source.sql"
+                }
+            ]
+        }
+    ]
+}
+
+
+//==========================================================
+// Content from: C:\Users\mhbau\Downloads\inline_sql_syntax\syntaxes\php-multiline.json
+//==========================================================
+
+{
+    "scopeName": "php-multiline.injection",
+    "fileTypes": [
+        "php",
+        "php4",
+        "php5"
+    ],
+    "injectionSelector": [
+        "text.html.php"
+    ],
+    "patterns": [
+        {
+            "comment": "PHP multi-line strings",
+            "begin": "(<<<)(SQL)",
+            "beginCaptures": {
+                "2": {
+                    "name": "entity.name.tag"
+                }
+            },
+            "end": "^\\s*(SQL);",
+            "endCaptures": {
+                "1": {
+                    "name": "entity"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "source.sql"
+                }
+            ]
+        }
+    ]
+}
+
+
+//==========================================================
+// Content from: C:\Users\mhbau\Downloads\inline_sql_syntax\tsconfig.json
+//==========================================================
+
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"target": "es2020",
+		"lib": ["es2020"],
+		"outDir": "out",
+		"sourceMap": true,
+		"strict": true,
+		"rootDir": "src"
+	},
+	"exclude": [
+		"node_modules",
+		".vscode-test"
+	]
+}
+
+

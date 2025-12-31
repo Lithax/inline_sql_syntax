@@ -86,6 +86,22 @@ export async function refreshDiagnostics(
     for (let lineIndex = 0; lineIndex < doc.lineCount; lineIndex += 1) {
         let lineOfText = doc.lineAt(lineIndex).text;
         if (sqlStartLineIndex === -1) {
+
+            // java string block support
+            if (doc.languageId === 'java' && lineOfText.trim().endsWith('"""')) {
+
+                if (lineIndex + 1 < doc.lineCount) {
+                    const nextLine = doc.lineAt(lineIndex + 1).text;
+
+                    if (/(^|\s)--\s*sql/.test(nextLine)) {
+                        startRangePosition = lineOfText.indexOf('"""') + 3;
+                        sqlStringBound = '"""';
+                        sqlStartLineIndex = lineIndex;
+                        continue;
+                    }
+                }
+            }
+
             if ((match = SQL_START_REGEX.exec(lineOfText)) !== null) {
                 startRangePosition = match.index + match.groups!.token.length;
                 sqlStringBound = match.groups!.token;
@@ -97,7 +113,7 @@ export async function refreshDiagnostics(
             }
         } else if (sqlStringBound !== '') {
             let endSqlIndex = lineOfText.indexOf(sqlStringBound);
-            if (endSqlIndex !== -1) {
+            if (endSqlIndex !== -1 && (lineIndex !== sqlStartLineIndex || endSqlIndex > startRangePosition)) {
                 sqlStringCnt += 1;
                 const range = new vscode.Range(
                     sqlStartLineIndex,

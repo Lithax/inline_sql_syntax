@@ -1,139 +1,60 @@
 {
     "scopeName": "inline-sql.injection",
     "fileTypes": [
-        "py",
-        "js",
-        "jsx",
-        "ts",
-        "tsx",
-        "vue",
-        "svelte",
-        "java",
-        "rb",
-        "cs",
-        "rs",
-        "php"
+        "py", "js", "jsx", "ts", "tsx", "vue", "svelte", "java", "rb", "cs", "rs", "php"
     ],
-    "injectionSelector": [
-        "text.html.php",
-        "L:source -comment -string"
-    ],
+    "injectionSelector": "L:source -comment -string, L:text.html.php -comment -string, L:string.quoted.triple.java",
     "patterns": [
+        {
+            "comment": "Java Text Blocks: Inject SQL highlighting if --sql is found inside",
+            "begin": "(--\\s*sql)",
+            "beginCaptures": {
+                "1": { "name": "comment.sql" }
+            },
+            "end": "(?=\"\"\")",
+            "patterns": [
+                { "include": "source.sql" }
+            ]
+        },
         {
             "comment": "Rust multi-line raw strings",
             "begin": "(b?r)(#*)(\")(--\\s*sql)",
             "beginCaptures": {
-                "1": {
-                    "name": "string.quoted.byte.raw.rust"
-                },
-                "2": {
-                    "name": "string.raw.rust"
-                },
-                "3": {
-                    "name": "string.rust"
-                },
-                "4": {
-                    "name": "comment.sql"
-                }
+                "1": { "name": "string.quoted.byte.raw.rust" },
+                "2": { "name": "string.raw.rust" },
+                "3": { "name": "string.rust" },
+                "4": { "name": "comment.sql" }
             },
             "end": "(\")(\\2)",
             "endCaptures": {
-                "1": {
-                    "name": "string.rust"
-                },
-                "2": {
-                    "name": "string.raw.rust"
-                }
+                "1": { "name": "string.rust" },
+                "2": { "name": "string.raw.rust" }
             },
             "patterns": [
-                {
-                    "include": "source.sql"
-                }
+                { "include": "source.sql" }
             ]
         },
         {
-            "begin": "(\")(--\\s*sql)",
+            "comment": "Standard quotes (single/double/backtick) with explicit --sql",
+            "begin": "(\"|'|`)(--\\s*sql)",
             "beginCaptures": {
-                "2": {
-                    "name": "comment.sql"
-                }
+                "1": { "name": "string.quoted" },
+                "2": { "name": "comment.sql" }
             },
-            "end": "(\")",
+            "end": "(\\1)",
             "patterns": [
-                {
-                    "include": "source.sql"
-                }
+                { "include": "source.sql" }
             ]
         },
         {
-            "begin": "(?i)(\")(SELECT |INSERT INTO |DELETE |UPDATE |CREATE TABLE |CREATE INDEX )",
-            "beginCaptures": {
-                "2": {
-                    "name": "keyword.sql"
-                }
-            },
-            "end": "(\")",
-            "patterns": [
-                {
-                    "include": "source.sql"
-                }
-            ]
-        },
-        {
-            "begin": "(`)(--\\s*sql)",
-            "beginCaptures": {
-                "2": {
-                    "name": "comment.sql"
-                }
-            },
-            "end": "(`)",
-            "patterns": [
-                {
-                    "include": "source.sql"
-                }
-            ]
-        },
-        {
-            "begin": "(?i)(`)(SELECT |INSERT INTO |DELETE |UPDATE |CREATE TABLE |CREATE INDEX)",
-            "beginCaptures": {
-                "2": {
-                    "name": "keyword.sql"
-                }
-            },
-            "end": "(`)",
-            "patterns": [
-                {
-                    "include": "source.sql"
-                }
-            ]
-        },
-        {
-            "comment": "Python multi-line strings",
+            "comment": "Python/Generic Triple Quotes with explicit --sql",
             "begin": "f?(\"\"\")(--\\s*sql)",
             "beginCaptures": {
-                "2": {
-                    "name": "comment.sql"
-                }
+                "2": { "name": "comment.sql" }
             },
             "end": "(\"\"\")",
             "patterns": [
-                {
-                    "include": "source.sql"
-                }
-            ]
-        },
-        {
-            "begin": "(?i)(\"\"\")(SELECT |INSERT INTO |DELETE |UPDATE |CREATE TABLE |CREATE INDEX)",
-            "beginCaptures": {
-                "2": {
-                    "name": "keyword.sql"
-                }
-            },
-            "end": "(\"\"\")",
-            "patterns": [
-                {
-                    "include": "source.sql"
-                }
+                { "include": "source.sql" }
             ]
         }
     ]
